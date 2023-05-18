@@ -67,13 +67,14 @@ public class MarkDown extends FileType {
   public String toString() {
     StringBuilder result = new StringBuilder();
     for (int i = 0; i < this.listOfMarkDown.size(); i++) {
-
-      if (i == listOfMarkDown.size() - 1 || listOfMarkDown.get(i + 1).getTag().contains("#")) {
-        String unitString = this.listOfMarkDown.get(i).toString() + "\n";
-        result.append(unitString);
-      } else {
-        String unitString = this.listOfMarkDown.get(i).toString();
-        result.append(unitString);
+      if (!listOfMarkDown.get(i).getText().contains(":::")) {
+        if (i == listOfMarkDown.size() - 1 || listOfMarkDown.get(i + 1).getTag().contains("#")) {
+          String unitString = this.listOfMarkDown.get(i).toString() + "\n";
+          result.append(unitString);
+        } else {
+          String unitString = this.listOfMarkDown.get(i).toString();
+          result.append(unitString);
+        }
       }
     }
     return result.toString();
