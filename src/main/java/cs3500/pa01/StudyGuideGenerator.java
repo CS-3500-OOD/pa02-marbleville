@@ -11,7 +11,9 @@ public class StudyGuideGenerator {
   private MarkDown studyGuide;
   private MarkDownReader markDownReader;
   private Path inputPath;
-  private Writer fileWriter;
+  private Writer markDownWriter;
+
+  private Writer questionsWriter;
 
   /**
    * Constructs a StudyGuideGenerator
@@ -23,7 +25,10 @@ public class StudyGuideGenerator {
   public StudyGuideGenerator(String inputPath, SortOrder sortBy, String outputPath) {
     this.markDownReader = new MarkDownReader(sortBy);
     this.inputPath = Path.of(inputPath);
-    this.fileWriter = new Writer(outputPath);
+    this.markDownWriter = new Writer(outputPath);
+    String questionPath = outputPath.substring(0, outputPath.lastIndexOf("/") + 1)
+        + "questions.md";
+    this.questionsWriter = new Writer(questionPath);
   }
 
   /**
@@ -33,7 +38,8 @@ public class StudyGuideGenerator {
     try {
       Files.walkFileTree(inputPath, markDownReader);
       studyGuide = markDownReader.toSingleMarkDown();
-      this.fileWriter.writeFile(this.studyGuide);
+      this.markDownWriter.writeFile(this.studyGuide);
+      this.questionsWriter.writeFile(this.studyGuide.getQuestionFile());
     } catch (IOException e) {
       System.out.println(FileSystemReader.errorMessage(e));
       e.printStackTrace();
