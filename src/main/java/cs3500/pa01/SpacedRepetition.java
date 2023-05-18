@@ -14,9 +14,17 @@ import java.util.Scanner;
  */
 public class SpacedRepetition {
   ArrayList<Question> listOfQuestions = new ArrayList<>();
-  int hardCt = 0;
+  private int hardCt = 0;
 
-  int numQuestions = 0;
+  private int numQuestions = 0;
+
+  private int numQuestionsAnswered = 0;
+
+  private int questionEasyToHard = 0;
+
+  private int questionHardToEasy = 0;
+
+  private String path = "";
 
 
   public void showWelcomeScreen() {
@@ -25,7 +33,7 @@ public class SpacedRepetition {
 
     Scanner input = new Scanner(System.in);
 
-    String path = input.nextLine();
+    this.path = input.nextLine();
 
     QuestionFile qf = new QuestionFile(path.substring(path.lastIndexOf("/") + 1),
         FileTime.from(Instant.now()), FileTime.from(Instant.now()));
@@ -58,15 +66,24 @@ public class SpacedRepetition {
     Scanner input = new Scanner(System.in);
     int currentInput = -1;
     for (Question q : this.getQuestionList()) {
+      this.numQuestionsAnswered++;
       System.out.println(q.getQuestion());
       while (currentInput != 1 || currentInput != 2) {
         currentInput = input.nextInt();
         switch (currentInput) {
           case 1:
             q.setHard(false);
+            if (q.isHard()) {
+              this.questionHardToEasy++;
+              this.hardCt--;
+            }
             break;
           case 2:
             q.setHard(true);
+            if (!q.isHard()) {
+              this.questionEasyToHard++;
+              this.hardCt++;
+            }
             break;
           case 3:
             System.out.println(q.getAnswer());
@@ -80,6 +97,7 @@ public class SpacedRepetition {
         }
       }
     }
+    this.exitStudySession();
   }
 
   public ArrayList<Question> getQuestionList() {
@@ -90,10 +108,23 @@ public class SpacedRepetition {
 
   public void exitStudySession() {
     this.showStats();
+    QuestionFile qf = new QuestionFile("questions.sr", FileTime.from(Instant.now()),
+        FileTime.from(Instant.now()));
+    for (Question q : this.listOfQuestions) {
+      qf.addQuestion(q);
+    }
+    Writer w = new Writer(path);
+    w.writeFile(qf);
     System.exit(0);
   }
 
   public void showStats() {
-    System.out.println("You got " + this.hardCt + " questions wrong.");
+    System.out.println("----------------------------");
+    System.out.println("Number of questions answered: " + this.numQuestionsAnswered);
+    System.out.println("Number of questions Easy -> Hard: " + this.questionEasyToHard);
+    System.out.println("Number of questions Hard -> Easy: " + this.questionHardToEasy);
+    System.out.println("Number of hard questions in file: " + this.hardCt);
+    System.out.println(
+        "Number of east questions in file: " + (this.listOfQuestions.size() - this.hardCt));
   }
 }
