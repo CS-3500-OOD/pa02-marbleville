@@ -10,9 +10,9 @@ public class Driver {
    * @param args - input path, sort order (n, c, m), output path
    */
   public static void main(String[] args) {
-    if (args.length <= 2) {
+    if (args.length <= 2 && args.length != 0) {
       System.out.println(helpMessage());
-    } else {
+    } else if (args.length != 0) {
       try {
         StudyGuideGenerator sgg =
             new StudyGuideGenerator(args[0], SortOrder.getSortOrder(args[1]), args[2]);
@@ -20,6 +20,9 @@ public class Driver {
       } catch (Exception e) {
         System.out.println("Invalid Input");
       }
+    } else if (args.length == 0) {
+      SpacedRepetition sp = new SpacedRepetition();
+      sp.showWelcomeScreen();
     }
   }
 
@@ -32,6 +35,7 @@ public class Driver {
     return "Please enter an \n"
         + "[input path], \n"
         + "[sort order (n - name, c - date created, m - date modified)], and an \n"
-        + "[output path]";
+        + "[output path]"
+        + "or no arguments to study questions.";
   }
 }

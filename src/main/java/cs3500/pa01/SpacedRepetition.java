@@ -56,6 +56,7 @@ public class SpacedRepetition {
         + this.listOfQuestions.size() + "?");
     if (input.nextInt() <= this.listOfQuestions.size()) {
       this.numQuestions = input.nextInt();
+      this.showQuestions();
     } else {
       System.out.println("No enough questions in file.");
       System.exit(0);
