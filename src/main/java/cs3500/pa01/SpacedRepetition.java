@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -82,8 +83,9 @@ public class SpacedRepetition {
   }
 
   public ArrayList<Question> getQuestionList() {
-    //randomize list and truncate
-    return this.listOfQuestions;
+    ArrayList<Question> newList = new ArrayList<>(this.listOfQuestions);
+    Collections.shuffle(newList);
+    return new ArrayList<>(newList.subList(0, this.numQuestions));
   }
 
   public void exitStudySession() {
