@@ -88,4 +88,14 @@ public class MarkDown extends FileType {
   public ArrayList<MarkDownUnit> getUnits() {
     return this.listOfMarkDown;
   }
+
+  public QuestionFile getQuestionFile() {
+    QuestionFile qf = new QuestionFile(this.getName(), this.getCreated(), this.getLastModified());
+    for (MarkDownUnit md : this.listOfMarkDown) {
+      if (md.getText().contains(":::")) {
+        qf.addQuestion(Question.parseLineFromMarkDown(md.getText()));
+      }
+    }
+    return qf;
+  }
 }

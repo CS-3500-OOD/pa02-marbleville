@@ -27,36 +27,36 @@ public abstract class FileType {
   }
 
   /**
-   * Returns the name of this MarkDown
+   * Returns the name of this FileType
    *
-   * @return the name of this MarkDown
+   * @return the name of this FileType
    */
   public String getName() {
     return this.name;
   }
 
   /**
-   * Returns the created date of this MarkDown
+   * Returns the created date of this FileType
    *
-   * @return the created date of this MarkDown
+   * @return the created date of this FileType
    */
   public FileTime getCreated() {
     return this.created;
   }
 
   /**
-   * Returns the last modified date of this MarkDown
+   * Returns the last modified date of this FileType
    *
-   * @return the last modified date of this MarkDown
+   * @return the last modified date of this FileType
    */
   public FileTime getLastModified() {
     return this.lastModified;
   }
 
   /**
-   * Returns the string representation of this MarkDown
+   * Returns the string representation of this FileType
    *
-   * @return the string representation of this MarkDown
+   * @return the string representation of this FileType
    */
   public abstract String toString();
 
