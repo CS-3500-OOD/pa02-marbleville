@@ -90,8 +90,13 @@ public class MarkDown extends FileType {
     return this.listOfMarkDown;
   }
 
+  /**
+   * Returns a QuestionFile object that contains the questions in this MarkDown
+   *
+   * @return a QuestionFile object that contains the questions in this MarkDown
+   */
   public QuestionFile getQuestionFile() {
-    QuestionFile qf = new QuestionFile(this.getName(), this.getCreated(), this.getLastModified());
+    QuestionFile qf = new QuestionFile("questions.sr", this.getCreated(), this.getLastModified());
     for (MarkDownUnit md : this.listOfMarkDown) {
       if (md.getText().contains(":::")) {
         qf.addQuestion(Question.parseLineFromMarkDown(md.getText()));

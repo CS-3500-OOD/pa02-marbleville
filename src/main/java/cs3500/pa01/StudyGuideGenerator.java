@@ -27,7 +27,7 @@ public class StudyGuideGenerator {
     this.inputPath = Path.of(inputPath);
     this.markDownWriter = new Writer(outputPath);
     String questionPath = outputPath.substring(0, outputPath.lastIndexOf("/") + 1)
-        + "questions.md";
+        + "questions.sr";
     this.questionsWriter = new Writer(questionPath);
   }
 

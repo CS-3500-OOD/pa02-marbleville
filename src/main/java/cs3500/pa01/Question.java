@@ -73,7 +73,7 @@ public class Question {
       throw new IllegalArgumentException("Invalid line");
     }
 
-    String[] lineArr = line.substring(line.indexOf("[[") + 2, line.lastIndexOf("]]")).split(":::");
+    String[] lineArr = line.split(":::");
     String question = lineArr[0];
     String answer = lineArr[1];
     return new Question(question, answer);

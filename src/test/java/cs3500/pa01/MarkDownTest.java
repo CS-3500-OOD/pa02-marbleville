@@ -55,7 +55,6 @@ class MarkDownTest {
     assertEquals("# Test\n- Test1\n\n", md.toString());
     md.tokenizeLine("[[Test2]]");
     assertEquals("# Test\n- Test1\n- Test2\n\n", md.toString());
-
   }
 
   /**
@@ -76,7 +75,30 @@ class MarkDownTest {
       readSuccess = false;
     }
     assertEquals("Test", md.getName());
-    assertEquals(10, md.getUnits().size());
+    assertEquals(11, md.getUnits().size());
+    assertTrue(readSuccess);
+  }
+
+  /**
+   * Test the getQuestionFile method for MarkDown
+   */
+  @Test
+  public void testGetQuestionFile() {
+    boolean readSuccess = true;
+    try {
+      Scanner scanner = new Scanner(Path.of("src/test/resources/arrays.md"));
+      StringBuilder file = new StringBuilder();
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine() + "\n";
+        file.append(line);
+      }
+      md.parseFile(file.toString());
+      assertEquals("[Arrays are indexed starting at?:::0:::false]",
+          md.getQuestionFile().getListOfQuestions().toString());
+    } catch (Exception e) {
+      System.out.println(e);
+      readSuccess = false;
+    }
     assertTrue(readSuccess);
   }
 }

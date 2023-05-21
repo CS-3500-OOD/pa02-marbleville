@@ -29,7 +29,7 @@ public class Writer {
       FileWriter myWriter = new FileWriter(outputPath.toString());
       myWriter.write(file.toString());
       myWriter.close();
-      System.out.println("Successfully wrote study guide to " + outputPath.toString());
+      System.out.println("Successfully wrote file to " + outputPath.toString());
     } catch (IOException e) {
       System.out.println(FileSystemReader.errorMessage(e));
       e.printStackTrace();

@@ -43,7 +43,7 @@ class MarkDownReaderTest {
     }
     assertTrue(readSuccess);
     assertEquals("arrays.md", mdrName.getFiles().get(0).getName());
-    assertEquals(10, mdrName.getFiles().get(0).getUnits().size());
+    assertEquals(11, mdrName.getFiles().get(0).getUnits().size());
 
     // Tests a non-existing file
     boolean readSuccess2 = true;
@@ -74,12 +74,10 @@ class MarkDownReaderTest {
       walkSuccess = false;
     }
     assertEquals("studyGuide", mdrName.toSingleMarkDown().getName());
-    assertEquals(17, mdrName.toSingleMarkDown().getUnits().size());
+    assertEquals(18, mdrName.toSingleMarkDown().getUnits().size());
     assertEquals(mdrName.toSingleMarkDown().toString().split("\n")[0],
         mdrName.getFiles().get(0).toString().split("\n")[0]);
     assertTrue(walkSuccess);
-
-
   }
 
   /**
@@ -99,7 +97,7 @@ class MarkDownReaderTest {
       walkSuccess = false;
     }
     assertEquals("studyGuide", mdrCreated.toSingleMarkDown().getName());
-    assertEquals(17, mdrCreated.toSingleMarkDown().getUnits().size());
+    assertEquals(18, mdrCreated.toSingleMarkDown().getUnits().size());
     assertEquals(mdrCreated.toSingleMarkDown().toString().split("\n")[0],
         mdrCreated.getFiles().get(0).toString().split("\n")[0]);
     assertTrue(walkSuccess);
@@ -122,7 +120,7 @@ class MarkDownReaderTest {
       walkSuccess = false;
     }
     assertEquals("studyGuide", mdrModified.toSingleMarkDown().getName());
-    assertEquals(17, mdrModified.toSingleMarkDown().getUnits().size());
+    assertEquals(18, mdrModified.toSingleMarkDown().getUnits().size());
     assertEquals(mdrModified.toSingleMarkDown().toString().split("\n")[0],
         mdrModified.getFiles().get(0).toString().split("\n")[0]);
     assertTrue(walkSuccess);

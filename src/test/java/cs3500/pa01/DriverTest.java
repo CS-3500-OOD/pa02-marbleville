@@ -20,6 +20,7 @@ class DriverTest {
     Driver.main(args);
     StringBuilder sb = new StringBuilder();
     File name = new File("src/test/studyGuide.md");
+    File questions = new File("src/test/questions.sr");
     try {
       Scanner scanner = new Scanner(name);
       while (scanner.hasNextLine()) {
@@ -34,6 +35,7 @@ class DriverTest {
         || sb.toString().split("\n")[0].equals("# Vectors\n");
     assertTrue(correctFirstLine);
     assertTrue(name.delete());
+    assertTrue(questions.delete());
   }
 
   @Test
@@ -42,6 +44,7 @@ class DriverTest {
     Driver.main(args);
     StringBuilder sb = new StringBuilder();
     File name = new File("src/test/studyGuide.md");
+    File questions = new File("src/test/questions.sr");
     try {
       Scanner scanner = new Scanner(name);
       while (scanner.hasNextLine()) {
@@ -54,6 +57,7 @@ class DriverTest {
     }
     assertEquals(sb.toString(), "");
     assertTrue(name.delete());
+    assertTrue(questions.delete());
   }
 
   /**
@@ -64,7 +68,8 @@ class DriverTest {
     String expected = "Please enter an \n"
         + "[input path], \n"
         + "[sort order (n - name, c - date created, m - date modified)], and an \n"
-        + "[output path]";
+        + "[output path]"
+        + ", or no arguments to study questions.";
     assertEquals(expected, Driver.helpMessage());
   }
 

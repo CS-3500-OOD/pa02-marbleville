@@ -3,6 +3,9 @@ package cs3500.pa01;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 
+/**
+ * Represents a file that contains a list of Questions
+ */
 public class QuestionFile extends FileType {
 
   ArrayList<Question> listOfQuestions = new ArrayList<>();
@@ -28,6 +31,7 @@ public class QuestionFile extends FileType {
     StringBuilder sb = new StringBuilder();
     for (Question q : this.listOfQuestions) {
       sb.append(q.toString());
+      sb.append("\n");
     }
     return sb.toString();
   }

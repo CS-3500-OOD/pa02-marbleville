@@ -33,14 +33,19 @@ class StudyGuideGeneratorTest {
     sggCreated.generateStudyGuide();
     sggModified.generateStudyGuide();
     File modified = new File("src/test/sggModified.md");
-    File name = new File("src/test/sggName.md");
-    File created = new File("src/test/sggCreated.md");
     assertTrue(modified.exists());
-    assertTrue(name.exists());
-    assertTrue(created.exists());
     assertTrue(modified.delete());
+
+    File name = new File("src/test/sggName.md");
+    assertTrue(name.exists());
     assertTrue(name.delete());
+
+    File created = new File("src/test/sggCreated.md");
+    assertTrue(created.exists());
     assertTrue(created.delete());
+
+    File questions = new File("src/test/questions.sr");
+    assertTrue(questions.delete());
   }
 
   @Test
@@ -73,6 +78,7 @@ class StudyGuideGeneratorTest {
       exists = false;
     }
     assertTrue(exists);
+
   }
 
   @Test
@@ -85,7 +91,6 @@ class StudyGuideGeneratorTest {
       scanner.close();
       assertTrue(name.delete());
     } catch (IOException e) {
-      e.printStackTrace();
       exists = false;
     }
     assertTrue(exists);
