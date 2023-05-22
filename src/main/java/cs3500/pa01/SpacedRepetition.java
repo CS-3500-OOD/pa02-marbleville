@@ -52,7 +52,7 @@ public class SpacedRepetition {
   }
 
   /**
-   * Takes user input for path and loas the question file
+   * Takes user input for path and loads the question file
    */
   public void loadQuestionFile(String path) {
     QuestionFile qf = new QuestionFile(path.substring(path.lastIndexOf("/") + 1),
