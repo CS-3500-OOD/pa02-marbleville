@@ -43,9 +43,7 @@ public class SpacedRepetition {
 
     this.numQuestions = Integer.parseInt(input.nextLine());
 
-    if (numQuestions <= this.listOfQuestions.size()) {
-      this.showQuestions();
-    } else {
+    if (!(numQuestions <= this.listOfQuestions.size())) {
       this.errorMessage();
       System.exit(0);
     }
@@ -55,6 +53,7 @@ public class SpacedRepetition {
    * Takes user input for path and loads the question file
    */
   public void loadQuestionFile(String path) {
+    this.path = path;
     QuestionFile qf = new QuestionFile(path.substring(path.lastIndexOf("/") + 1),
         FileTime.from(Instant.now()), FileTime.from(Instant.now()));
     try {
@@ -84,8 +83,9 @@ public class SpacedRepetition {
       this.numQuestionsAnswered++;
       System.out.println(q.getQuestion());
       System.out.println(this.questionMessage());
+      // does not stop when out of questions
       while (currentInput != 1 && currentInput != 2) {
-        currentInput = input.nextInt();
+        currentInput = Integer.parseInt(input.nextLine());
         switch (currentInput) {
           case 1:
             if (q.isHard()) {
@@ -112,8 +112,8 @@ public class SpacedRepetition {
             this.errorMessage();
             break;
         }
-        currentInput = -1;
       }
+      currentInput = -1;
     }
     this.exitStudySession(this.path);
   }
@@ -231,5 +231,30 @@ public class SpacedRepetition {
     return "\nYour question file has been loaded..."
         + "\nHow many question would you like to study out of "
         + this.listOfQuestions.size() + "?: ";
+  }
+
+  /**
+   * Sets the number of questions to be studied
+   *
+   * @param num number of questions to be studied
+   */
+  public void setNumQuestions(int num) {
+    this.numQuestions = num;
+  }
+
+  /**
+   * Sets the path to the question file
+   */
+  public void setPath(String path) {
+    this.path = path;
+  }
+
+  /**
+   * Returns the number of questions to be studied
+   *
+   * @return number of questions to be studied
+   */
+  public int getNumQuestions() {
+    return this.numQuestions;
   }
 }

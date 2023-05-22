@@ -20,7 +20,6 @@ class DriverTest {
     Driver.main(args);
     StringBuilder sb = new StringBuilder();
     File name = new File("src/test/studyGuide.md");
-    File questions = new File("src/test/questions.sr");
     try {
       Scanner scanner = new Scanner(name);
       while (scanner.hasNextLine()) {
@@ -35,6 +34,7 @@ class DriverTest {
         || sb.toString().split("\n")[0].equals("# Vectors\n");
     assertTrue(correctFirstLine);
     assertTrue(name.delete());
+    File questions = new File("src/test/questions.sr");
     assertTrue(questions.delete());
   }
 
@@ -44,7 +44,6 @@ class DriverTest {
     Driver.main(args);
     StringBuilder sb = new StringBuilder();
     File name = new File("src/test/studyGuide.md");
-    File questions = new File("src/test/questions.sr");
     try {
       Scanner scanner = new Scanner(name);
       while (scanner.hasNextLine()) {
@@ -57,6 +56,7 @@ class DriverTest {
     }
     assertEquals(sb.toString(), "");
     assertTrue(name.delete());
+    File questions = new File("src/test/questions.sr");
     assertTrue(questions.delete());
   }
 

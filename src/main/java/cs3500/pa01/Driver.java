@@ -23,6 +23,7 @@ public class Driver {
     } else if (args.length == 0) {
       SpacedRepetition sp = new SpacedRepetition();
       sp.showWelcomeScreen();
+      sp.showQuestions();
     }
   }
 

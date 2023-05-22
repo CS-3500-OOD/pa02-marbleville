@@ -1,9 +1,13 @@
 package cs3500.pa01;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +18,81 @@ class SpacedRepetitionTest {
   @BeforeEach
   public void setUp() {
     spacedRepetition = new SpacedRepetition();
+  }
+
+  /**
+   * Tests the showWelcomeScreen method
+   */
+  @Test
+  public void testShowWelcomeScreen() {
+    String input = String.format("src/test/resources/questions.sr%s2", System.lineSeparator());
+    ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    spacedRepetition.showWelcomeScreen();
+    assertEquals(1, spacedRepetition.getHardCt());
+    assertEquals(2, spacedRepetition.getListOfQuestions().size());
+  }
+
+  /**
+   * Tests the showQuestions method
+   */
+  @Test
+  public void testShowQuestions() {
+    // load file and set state
+    spacedRepetition.loadQuestionFile("src/test/resources/questions.sr");
+    spacedRepetition.setNumQuestions(2);
+
+    // simulate a study session where user sets all questions to hard
+    spacedRepetition.setPath("src/test/resources/questions(1).sr");
+    String input = String.format("2%s2", System.lineSeparator());
+    ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+    System.setIn(in);
+    spacedRepetition.showQuestions();
+    assertEquals(2, spacedRepetition.getHardCt());
+
+    // simulate a study session where user sets all questions to easy
+    spacedRepetition.setPath("src/test/resources/questions(1).sr");
+    String input2 = String.format("1%s1", System.lineSeparator());
+    ByteArrayInputStream in2 = new ByteArrayInputStream(input2.getBytes());
+    System.setIn(in2);
+    spacedRepetition.showQuestions();
+    assertEquals(0, spacedRepetition.getHardCt());
+
+    // simulate session where user asks for the answer
+    spacedRepetition.setPath("src/test/resources/questions(1).sr");
+    String input3 = String.format("3%s1%s3%s2", System.lineSeparator(), System.lineSeparator(),
+        System.lineSeparator());
+    ByteArrayInputStream in3 = new ByteArrayInputStream(input3.getBytes());
+    System.setIn(in3);
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outContent));
+
+    spacedRepetition.showQuestions();
+    assertTrue(
+        outContent.toString().contains("Lansing"));
+
+    //tests exiting program
+    spacedRepetition.setPath("src/test/resources/questions(2).sr");
+    String input4 = String.format("1%s1", System.lineSeparator());
+    ByteArrayInputStream in4 = new ByteArrayInputStream(input4.getBytes());
+    System.setIn(in4);
+    spacedRepetition.showQuestions();
+    File questions2 = new File("src/test/resources/questions(2).sr");
+    assertTrue(questions2.delete());
+
+    // delete test file
+    File questions = new File("src/test/resources/questions(1).sr");
+    assertTrue(questions.delete());
+  }
+
+  /**
+   * Tests the setNumQuestions and getNumQuestions method
+   */
+  @Test
+  public void testSetNumQuestions() {
+    spacedRepetition.setNumQuestions(2);
+    assertEquals(2, spacedRepetition.getNumQuestions());
   }
 
   /**
